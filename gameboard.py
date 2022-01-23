@@ -14,6 +14,19 @@ class Board:
                 self.board[1] = 1
             elif mouse_pos[0] <= 640:
                 self.board[2] = 1
-
+        elif mouse_pos[1] <= 420:
+            if mouse_pos[0] <= 200:
+                self.board[3] = 1
+            elif mouse_pos[0] <= 420:
+                self.board[4] = 1
+            elif mouse_pos[0] <= 640:
+                self.board[5] = 1
+        elif mouse_pos[1] <= 640:
+            if mouse_pos[0] <= 200:
+                self.board[6] = 1
+            elif mouse_pos[0] <= 420:
+                self.board[7] = 1
+            elif mouse_pos[0] <= 640:
+                self.board[8] = 1
 
             
