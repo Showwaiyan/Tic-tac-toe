@@ -36,10 +36,10 @@ while True:
 
     for i in range(0,9):
         if board.board[i] == player1.give_char():
-            character = font.render(player1.give_char(), True, (0,0,0))
+            character = font.render(player1.give_char(), True, (255,226,190))
             screen.blit(character, board.give_pos(i,character.get_width()//2,character.get_height()//2))
         elif board.board[i] == player2.give_char():
-            character = font.render(player2.give_char(), True, (0,0,0))
+            character = font.render(player2.give_char(), True, (88,89,90))
             screen.blit(character, board.give_pos(i,character.get_width()//2,character.get_height()//2))
                 
     pygame.display.update()

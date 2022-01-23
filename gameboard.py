@@ -29,6 +29,22 @@ class Board:
             elif mouse_pos[0] <= 640:
                 self.board[8] = char if self.board[8] == 0 else self.board[8]
 
-    def give_pos(self,square,text_width,text_hight):
+    def give_pos(self,square,text_width,text_height):
         if square == 0:
-            return (100-text_width,100-text_hight)
+            return (100-text_width,100-text_height)
+        elif square == 1:
+            return (320-text_width,100-text_height)
+        elif square == 2:
+            return (540-text_width,100-text_height)
+        elif square == 3:
+            return (100-text_width,320-text_height)
+        elif square == 4:
+            return (320-text_width,320-text_height)
+        elif square == 5:
+            return (540-text_width,320-text_height)
+        elif square == 6:
+            return (100-text_width,540-text_height)
+        elif square == 7:
+            return (320-text_width,540-text_height)
+        elif square == 8:
+            return (540-text_width,540-text_height)
