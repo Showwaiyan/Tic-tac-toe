@@ -15,6 +15,7 @@ font = pygame.font.SysFont("arial",200)
 screen = pygame.display.set_mode(board.screen_size, 0, 32)
 
 
+screen.fill(background_color)
 
 while True:
     for event in pygame.event.get():
@@ -27,7 +28,6 @@ while True:
                 board.change_square(event.pos, player2.give_char())
             playerstate = not playerstate
 
-    screen.fill(background_color)
 
     #Drawing nine square on the screen
     for y in range(0,board.screen_size[1],220):
