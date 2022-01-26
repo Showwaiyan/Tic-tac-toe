@@ -12,6 +12,9 @@ player2 = gameplayer.Player("x", (237,221,181))
 # and otherwise false, it will represent another player
 playerstate = True
 
+# variable to check if someone win or nor
+game_over = False
+
 #Set Constant Color
 RECT_COLOR = (44,157,153)
 BACKGROUND_COLOR = (64,135,132)
@@ -28,7 +31,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
             if board.check_square(event.pos): # Checking the square's value is with a character 
                 continue
 
@@ -39,6 +42,13 @@ while True:
             else:
                 board.change_square(event.pos, player2.give_char()) 
                 playerstate = True # Changing state for another player
+
+            if board.test_winning(player1.give_char()):
+                print("Player1 win")
+                game_over = True
+            elif board.test_winning(player2.give_char()):
+                print("Player2 win")
+                game_over = True
 
 
     #Drawing nine square on the screen

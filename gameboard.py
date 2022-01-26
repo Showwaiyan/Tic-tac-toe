@@ -3,6 +3,8 @@ class Board:
     board = [[0,0,0]   # Multidimension List for 
             ,[0,0,0]   # accessing data as a 
             ,[0,0,0]]  # Command line preference
+    BOARD_ROW = 3
+    BOARD_COLON = 3
 
     def __init__(self,screen_size):
         #size of the game baord screen
@@ -42,3 +44,56 @@ class Board:
        x = ((colon * 220) + 100) - text_width
        y = ((row * 220) + 100) - text_height
        return (x,y)
+
+    def test_winning(self,player):
+       win_state = 0 # State value if value get 3, the player win
+
+       # Horizontal row test start
+       for y in range(self.BOARD_ROW):
+           for x in range(self.BOARD_COLON):
+               if self.board[x][y] == player:
+                   win_state += 1
+                   continue
+           if win_state == 3:
+               return True
+           else:
+               win_state = 0
+        # Horizontal row test end
+
+        # Vertical colon test start
+       for x in range(self.BOARD_COLON):
+           for y in range(self.BOARD_ROW):
+               if self.board[x][y] == player:
+                    win_state += 1
+                    continue
+           if win_state == 3:
+               return True
+           else:
+               win_state = 0
+        # Vertical colon test end
+
+        # Acending cross test start
+       for i in range(self.BOARD_ROW): # We can use both board row or colon
+           if self.board[i][i] == player:
+               win_state += 1
+               continue
+            
+           if win_state == 3:
+               return True
+           else:
+               break
+        # Acending cross test end
+
+        # Desending cross test start
+       for i in range(self.BOARD_COLON): # We can use both board row or colon
+           if self.board[i][2-i] == player:
+               win_state += 1
+               continue
+
+           if win_state == 3:
+               return True
+           else:
+               break
+        # Desending cross test end
+                   
+       return False 
