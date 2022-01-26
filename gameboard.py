@@ -10,6 +10,16 @@ class Board:
         #size of the game baord screen
         self.screen_size = screen_size
     
+
+    def get_width(self):
+        # Getter of screen size width
+        return self.screen_size[0]
+
+    def get_height(self):
+        # Getter of screen size height
+        return self.screen_size[1]
+
+
     def change_square(self,mouse_pos, char):
         # Determine the square from the position of mouse
         

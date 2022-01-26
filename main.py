@@ -1,5 +1,5 @@
 # Module import Start
-import pygame, sys
+import pygame, sys, os
 import gameboard, gameplayer
 # Module import End
 
@@ -19,10 +19,15 @@ game_over = False
 RECT_COLOR = (44,157,153)
 BACKGROUND_COLOR = (64,135,132)
 
+
+x = (1920//2)-(board.get_width()//2)
+y = (1080//2)-(board.get_height()//2)
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
+
 pygame.init() # pygame package initlize
 
 char_font = pygame.font.SysFont("arial",200) # Font for character represent
-screen = pygame.display.set_mode(board.screen_size, 0, 32) 
+screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32) 
 
 
 screen.fill(BACKGROUND_COLOR)
