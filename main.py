@@ -5,8 +5,8 @@ import gameboard, gameplayer
 
 # Creating object for board and players
 board = gameboard.Board((640,640))
-player1 = gameplayer.Player("o", (237,221,181))
-player2 = gameplayer.Player("x", (98,102,104))
+player1 = gameplayer.Player("o", (237,221,181), (255,233,179))
+player2 = gameplayer.Player("x", (98,102,104), (74,74,74))
 
 # Player's state if Ture, it will represent one of the player
 # and otherwise false, it will represent another player
@@ -66,18 +66,18 @@ while True:
     for row in range(0,3):
         for colon in range(0,3):
             if board.board[row][colon] == player1.give_char():
-                character = char_font.render(player1.give_char(), True, player1.give_color())
+                character = char_font.render(player1.give_char(), True, player1.give_charcolor())
                 screen.blit(character, board.give_pos(row,colon,character.get_width()//2,character.get_height()//2))
             elif board.board[row][colon] == player2.give_char():
-                character = char_font.render(player2.give_char(), True, player2.give_color())
+                character = char_font.render(player2.give_char(), True, player2.give_charcolor())
                 screen.blit(character, board.give_pos(row,colon,character.get_width()//2,character.get_height()//2))
 
 
     # Drawing winnig line on GUI
     if game_over:
         if not playerstate:
-            pygame.draw.lines(screen, player1.give_color(), False, board.get_winningline_pos(), 10)
+            pygame.draw.lines(screen, player1.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
         elif playerstate:
-            pygame.draw.lines(screen, player2.give_color(), False, board.get_winningline_pos(), 10)
+            pygame.draw.lines(screen, player2.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
             
     pygame.display.update()

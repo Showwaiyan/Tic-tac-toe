@@ -5,8 +5,9 @@ class Board:
             ,[0,0,0]]  # Command line preference
     BOARD_ROW = 3
     BOARD_COLON = 3
-    winning_line = [0,0] # To draw line position on GUI screen
-
+    winning_linepos = [0,0] # To draw line position on GUI screen
+    winning_linewidth = 1
+    
     def __init__(self,screen_size):
         #size of the game baord screen
         self.screen_size = screen_size
@@ -21,7 +22,12 @@ class Board:
         return self.screen_size[1]
 
     def get_winningline_pos(self):
-        return self.winning_line
+        # Getter of winning line position
+        return self.winning_linepos
+
+    def get_linewidth(self):
+        # Getter of winning line width
+        return self.winning_linewidth
 
 
     def change_square(self,mouse_pos, char):
@@ -69,9 +75,10 @@ class Board:
                if self.board[y][x] == player:
                    win_state += 1
            if win_state == 3:
-               self.winning_line = [
-                        (40,y*220 +100),
-                        (self.get_width()-20,y*220 +100)]
+               self.winning_linepos = [
+                        (40,y*220 +110),
+                        (self.get_width()-40,y*220 +110)]
+               self.winning_linewidth = 13
                return True
            else:
                win_state = 0
@@ -86,13 +93,47 @@ class Board:
                 if self.board[x][y] == player:
                     win_state += 1
             if win_state == 3:
-                self.winning_line = [
+                self.winning_linepos = [
                         (y*220 +100,40),
                         (y*220 +100,self.get_height()-20)]
+                self.winning_linewidth = 13
                 return True
             else:
                 win_state = 0
         return False
+    
+    def des_cross_test(self,player):
+        # Checking descending cross section if player is win or not
+        win_state = 0
+
+        for i in range(self.BOARD_ROW): # We can use both board row and colon
+            if self.board[i][i] == player:
+                win_state += 1
+        if win_state == 3:
+            self.winning_linepos = [
+                    (40,50),
+                    (self.get_width()-40, self.get_height()-30)]
+            self.winning_linewidth = 20
+            return True
+        else:
+            return False
+
+    def asc_cross_test(self,player):
+        # Checking asceding cross section if player is win or not
+        win_state = 0
+
+        for i in range(self.BOARD_COLON): # We can use both board row and colon
+            if self.board[i][2-i] == player:
+                win_state += 1
+        if win_state == 3:
+            self.winning_linepos = [
+                    (40,self.get_height()-30),
+                    (self.get_width() - 30,40)]
+            self.winning_linewidth = 20
+            return True
+        else:
+            return False
+
 
     def test_winning(self,player):
        # Checking every position of square if player win or not
@@ -100,6 +141,10 @@ class Board:
        if self.horizontal_test(player):
            return True
        elif self.vertical_test(player):
+           return True
+       elif self.asc_cross_test(player):
+           return True
+       elif self.des_cross_test(player):
            return True
        else:
            return False
