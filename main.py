@@ -50,10 +50,8 @@ while True:
             
             # Checking which player win
             if board.test_winning(player1.give_char()):
-                print("Player1 win")
                 game_over = True
             elif board.test_winning(player2.give_char()):
-                print("Player2 win")
                 game_over = True
 
 
