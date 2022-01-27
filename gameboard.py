@@ -5,6 +5,7 @@ class Board:
             ,[0,0,0]]  # Command line preference
     BOARD_ROW = 3
     BOARD_COLON = 3
+    winning_line = [0,0] # To draw line position on GUI screen
 
     def __init__(self,screen_size):
         #size of the game baord screen
@@ -18,6 +19,9 @@ class Board:
     def get_height(self):
         # Getter of screen size height
         return self.screen_size[1]
+
+    def get_winningline_pos(self):
+        return self.winning_line
 
 
     def change_square(self,mouse_pos, char):
@@ -55,55 +59,49 @@ class Board:
        y = ((row * 220) + 100) - text_height
        return (x,y)
 
-    def test_winning(self,player):
-       win_state = 0 # State value if value get 3, the player win
 
-       # Horizontal row test start
-       for y in range(self.BOARD_ROW):
+    def horizontal_test(self,player):
+        #Cheking horizontal row if the player win or not
+        win_state = 0
+       
+        for y in range(self.BOARD_ROW):
            for x in range(self.BOARD_COLON):
-               if self.board[x][y] == player:
+               if self.board[y][x] == player:
                    win_state += 1
-                   continue
            if win_state == 3:
+               self.winning_line = [
+                        (40,y*220 +100),
+                        (self.get_width()-20,y*220 +100)]
                return True
            else:
                win_state = 0
-        # Horizontal row test end
+        return False
 
-        # Vertical colon test start
-       for x in range(self.BOARD_COLON):
-           for y in range(self.BOARD_ROW):
-               if self.board[x][y] == player:
+    def vertical_test(self,player):
+        #Checkingg vertical colon if player win or not
+        win_state = 0
+
+        for y in range(self.BOARD_COLON):
+            for x in range(self.BOARD_ROW):
+                if self.board[x][y] == player:
                     win_state += 1
-                    continue
-           if win_state == 3:
-               return True
-           else:
-               win_state = 0
-        # Vertical colon test end
+            if win_state == 3:
+                self.winning_line = [
+                        (y*220 +100,40),
+                        (y*220 +100,self.get_height()-20)]
+                return True
+            else:
+                win_state = 0
+        return False
 
-        # Acending cross test start
-       for i in range(self.BOARD_ROW): # We can use both board row or colon
-           if self.board[i][i] == player:
-               win_state += 1
-               continue
-            
-           if win_state == 3:
-               return True
-           else:
-               break
-        # Acending cross test end
+    def test_winning(self,player):
+       # Checking every position of square if player win or not
 
-        # Desending cross test start
-       for i in range(self.BOARD_COLON): # We can use both board row or colon
-           if self.board[i][2-i] == player:
-               win_state += 1
-               continue
+       if self.horizontal_test(player):
+           return True
+       elif self.vertical_test(player):
+           return True
+       else:
+           return False
 
-           if win_state == 3:
-               return True
-           else:
-               break
-        # Desending cross test end
                    
-       return False 

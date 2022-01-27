@@ -5,8 +5,8 @@ import gameboard, gameplayer
 
 # Creating object for board and players
 board = gameboard.Board((640,640))
-player1 = gameplayer.Player("o",(98,102,104))
-player2 = gameplayer.Player("x", (237,221,181))
+player1 = gameplayer.Player("o", (237,221,181))
+player2 = gameplayer.Player("x", (98,102,104))
 
 # Player's state if Ture, it will represent one of the player
 # and otherwise false, it will represent another player
@@ -19,7 +19,7 @@ game_over = False
 RECT_COLOR = (44,157,153)
 BACKGROUND_COLOR = (64,135,132)
 
-
+# Assign the position of screen on the center of the monitor(window)
 x = (1920//2)-(board.get_width()//2)
 y = (1080//2)-(board.get_height()//2)
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
@@ -47,7 +47,8 @@ while True:
             else:
                 board.change_square(event.pos, player2.give_char()) 
                 playerstate = True # Changing state for another player
-
+            
+            # Checking which player win
             if board.test_winning(player1.give_char()):
                 print("Player1 win")
                 game_over = True
@@ -71,4 +72,12 @@ while True:
                 character = char_font.render(player2.give_char(), True, player2.give_color())
                 screen.blit(character, board.give_pos(row,colon,character.get_width()//2,character.get_height()//2))
 
+
+    # Drawing winnig line on GUI
+    if game_over:
+        if not playerstate:
+            pygame.draw.lines(screen, player1.give_color(), False, board.get_winningline_pos(), 10)
+        elif playerstate:
+            pygame.draw.lines(screen, player2.give_color(), False, board.get_winningline_pos(), 10)
+            
     pygame.display.update()
