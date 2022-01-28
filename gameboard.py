@@ -6,7 +6,7 @@ class Board:
     BOARD_ROW = 3
     BOARD_COLON = 3
     winning_linepos = [[0,0],[0,0]] # To draw line position on GUI screen
-    winning_linewidth = 0
+    winning_linewidth = 0 # To draw line width on GUI screen
     
     def __init__(self,screen_size):
         #size of the game baord screen
@@ -31,6 +31,7 @@ class Board:
 
     
     def restart_gameboard(self):
+        # Restart the game
         self.board = [[0,0,0]
                      ,[0,0,0]
                      ,[0,0,0]]
@@ -55,7 +56,7 @@ class Board:
         self.board[row][colon] = char if self.board[row][colon] == 0 else self.board[row][colon]
 
     def check_square(self,mouse_pos):
-       # Checking the square on screen is drew or ot
+       # Checking the square on screen is drew or not
 
        # If the user click the square that has already value with character
        # this function return the positon of x and y's square has been draw
@@ -65,7 +66,7 @@ class Board:
        return (self.board[row][colon] != 0)
   
         
-    def give_pos(self,row,colon,text_width,text_height):
+    def get_pos(self,row,colon,text_width,text_height):
        # Giving the which? sqaure's center base on the mouse position of x and y
        # to draw the character
 

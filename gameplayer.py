@@ -9,11 +9,11 @@ class Player:
         self.char_color = char_color # Character's color
         self.win_color = win_color
 
-    def give_char(self):
+    def get_char(self):
         # getter of player's character
         return self.char
 
-    def give_charcolor(self):
+    def get_charcolor(self):
         #getter of player's character-color
         return self.char_color
     

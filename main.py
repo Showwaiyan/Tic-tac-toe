@@ -42,16 +42,16 @@ while True:
 
             # Changing the player's character on CLI array board
             if playerstate: 
-                board.change_square(event.pos, player1.give_char()) 
+                board.change_square(event.pos, player1.get_char()) 
                 playerstate = False # Changing state for another player
             else:
-                board.change_square(event.pos, player2.give_char()) 
+                board.change_square(event.pos, player2.get_char()) 
                 playerstate = True # Changing state for another player
             
             # Checking which player win
-            if board.test_winning(player1.give_char()):
+            if board.test_winning(player1.get_char()):
                 game_over = True
-            elif board.test_winning(player2.give_char()):
+            elif board.test_winning(player2.get_char()):
                 game_over = True
 
         elif event.type == pygame.KEYDOWN and game_over:
@@ -70,12 +70,12 @@ while True:
     # Filling Player's character on GUI screen
     for row in range(0,3):
         for colon in range(0,3):
-            if board.board[row][colon] == player1.give_char():
-                character = char_font.render(player1.give_char(), True, player1.give_charcolor())
-                screen.blit(character, board.give_pos(row,colon,character.get_width()//2,character.get_height()//2))
-            elif board.board[row][colon] == player2.give_char():
-                character = char_font.render(player2.give_char(), True, player2.give_charcolor())
-                screen.blit(character, board.give_pos(row,colon,character.get_width()//2,character.get_height()//2))
+            if board.board[row][colon] == player1.get_char():
+                character = char_font.render(player1.get_char(), True, player1.get_charcolor())
+                screen.blit(character, board.get_pos(row,colon,character.get_width()//2,character.get_height()//2))
+            elif board.board[row][colon] == player2.get_char():
+                character = char_font.render(player2.get_char(), True, player2.get_charcolor())
+                screen.blit(character, board.get_pos(row,colon,character.get_width()//2,character.get_height()//2))
 
 
     # Drawing winnig line on GUI
