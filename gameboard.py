@@ -5,8 +5,8 @@ class Board:
             ,[0,0,0]]  # Command line preference
     BOARD_ROW = 3
     BOARD_COLON = 3
-    winning_linepos = [0,0] # To draw line position on GUI screen
-    winning_linewidth = 1
+    winning_linepos = [[0,0],[0,0]] # To draw line position on GUI screen
+    winning_linewidth = 0
     
     def __init__(self,screen_size):
         #size of the game baord screen
@@ -28,6 +28,14 @@ class Board:
     def get_linewidth(self):
         # Getter of winning line width
         return self.winning_linewidth
+
+    
+    def restart_gameboard(self):
+        self.board = [[0,0,0]
+                     ,[0,0,0]
+                     ,[0,0,0]]
+        self.winning_linepos = [[0,0],[0,0]]        
+        self.winning_linewidth = 0
 
 
     def change_square(self,mouse_pos, char):

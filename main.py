@@ -54,6 +54,13 @@ while True:
             elif board.test_winning(player2.give_char()):
                 game_over = True
 
+        elif event.type == pygame.KEYDOWN and game_over:
+            if event.key == pygame.K_SPACE:
+                game_over = False
+                screen.fill(BACKGROUND_COLOR)
+                board.restart_gameboard()
+            
+
 
     #Drawing nine square on the screen
     for y in range(0,board.screen_size[1],220):
