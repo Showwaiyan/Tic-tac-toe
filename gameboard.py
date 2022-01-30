@@ -1,3 +1,7 @@
+# Module import start
+import random
+# Module import end
+
 # The Whole Game Board Class
 class Board:
     board = [[0,0,0]   # Multidimension List for 
@@ -7,7 +11,12 @@ class Board:
     BOARD_COLON = 3
     winning_linepos = [[0,0],[0,0]] # To draw line position on GUI screen
     winning_linewidth = 0 # To draw line width on GUI screen
-    
+
+    # Player's state if Ture, it will represent one of the player
+    # and otherwise false, it will represent another player
+    playerstate = None
+
+
     def __init__(self,screen_size):
         #size of the game baord screen
         self.screen_size = screen_size
@@ -158,4 +167,28 @@ class Board:
        else:
            return False
 
-                   
+    def check_gameboard(self):
+       # Checking the gameboard is fully filled with character or not
+       for x in range(self.BOARD_COLON):
+           for y in range(self.BOARD_ROW):
+               if self.board[x][y] == 0:
+                   return False
+       return True
+
+
+    def first_playerchoose(self):
+        # Choosing which player start to play
+        if random.randint(0,1) == 0:
+            self.playerstate = False
+        else:
+            self.playerstate = True
+
+    def get_playerstate(self):
+        # Getter of player state
+        return self.playerstate
+
+    def set_playerstate(self, flag):
+        # Setter of plaer state
+        self.playerstate = flag
+
+

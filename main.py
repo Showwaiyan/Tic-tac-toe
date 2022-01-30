@@ -8,9 +8,7 @@ board = gameboard.Board((640,640))
 player1 = gameplayer.Player("o", (237,221,181), (255,233,179))
 player2 = gameplayer.Player("x", (98,102,104), (74,74,74))
 
-# Player's state if Ture, it will represent one of the player
-# and otherwise false, it will represent another player
-playerstate = True
+board.first_playerchoose() # Choosing which player to start
 
 # variable to check if someone win or nor
 game_over = False
@@ -41,12 +39,12 @@ while True:
                 continue
 
             # Changing the player's character on CLI array board
-            if playerstate: 
+            if board.get_playerstate(): 
                 board.change_square(event.pos, player1.get_char()) 
-                playerstate = False # Changing state for another player
+                board.set_playerstate(False)# Changing state to another player
             else:
                 board.change_square(event.pos, player2.get_char()) 
-                playerstate = True # Changing state for another player
+                board.set_playerstate(True) # Changing state to another player
             
             # Checking which player win
             if board.test_winning(player1.get_char()):
@@ -60,7 +58,6 @@ while True:
                 screen.fill(BACKGROUND_COLOR)
                 board.restart_gameboard()
             
-
 
     #Drawing nine square on the screen
     for y in range(0,board.screen_size[1],220):
@@ -80,9 +77,9 @@ while True:
 
     # Drawing winnig line on GUI
     if game_over:
-        if not playerstate:
+        if not board.get_playerstate():
             pygame.draw.lines(screen, player1.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
-        elif playerstate:
+        elif board.get_playerstate():
             pygame.draw.lines(screen, player2.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
             
     pygame.display.update()
