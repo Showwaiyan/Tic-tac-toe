@@ -52,6 +52,11 @@ while True:
             elif board.test_winning(player2.get_char()):
                 game_over = True
 
+            # Checking the board is completely filled or not
+            if board.check_gameboard():
+                game_over = True
+
+        # Restarting the game
         elif event.type == pygame.KEYDOWN and game_over:
             if event.key == pygame.K_SPACE:
                 game_over = False
@@ -81,5 +86,5 @@ while True:
             pygame.draw.lines(screen, player1.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
         elif board.get_playerstate():
             pygame.draw.lines(screen, player2.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
-            
+                        
     pygame.display.update()

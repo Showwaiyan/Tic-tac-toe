@@ -191,4 +191,3 @@ class Board:
         # Setter of plaer state
         self.playerstate = flag
 
-
