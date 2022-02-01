@@ -1,6 +1,6 @@
 # Module import Start
 import pygame, sys, os
-import gameboard, gameplayer
+import gameboard, gameplayer, gamemenu
 # Module import End
 
 # Creating object for board and players
@@ -25,7 +25,12 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 pygame.init() # pygame package initlize
 
 char_font = pygame.font.SysFont("arial",200) # Font for character represent
+pygame.display.set_caption("Tic-Tac-Toe")
 screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32) 
+
+
+# Calling game intro surface
+gamemenu.gameintro_menu(screen, board.get_width(), board.get_height())
 
 
 screen.fill(BACKGROUND_COLOR)
