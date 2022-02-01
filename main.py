@@ -40,9 +40,10 @@ screen.fill(BACKGROUND_COLOR)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_c and event.key == pygaem.K_LCTRL: # If press ctrl+c to quit
-                sys.exit()
-            else:
+            if event.mod & pygame.KMOD_LCTRL: # If press ctrl+c to quit
+                if event.key == pygame.K_c:
+                    sys.exit()
+            elif event.type == pygame.QUIT:
                 sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
             if board.check_square(event.pos): # Checking the square's value is with a character 
