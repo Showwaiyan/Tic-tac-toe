@@ -30,15 +30,20 @@ screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32)
 
 
 # Calling game intro surface
-gamemenu.gameintro_menu(screen, board.get_width(), board.get_height())
+if not gamemenu.gameintro_menu(screen, board.get_width(), board.get_height()):
+    sys.exit() # If user click quit button
+    
 
 
 screen.fill(BACKGROUND_COLOR)
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
+        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_c and event.key == pygaem.K_LCTRL: # If press ctrl+c to quit
+                sys.exit()
+            else:
+                sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
             if board.check_square(event.pos): # Checking the square's value is with a character 
                 continue
