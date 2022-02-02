@@ -1,9 +1,11 @@
 # Class for button
 class Button():
 
-    def __init__(self,text, color, surface=None,pos=None, size=None):
+    def __init__(self,text, color, box=None ,font=None, surface=None,pos=None, size=None):
         self.text = text # Text that will appear on screen
         self.color = color # Text color
+        self.box = box
+        self.font = font
         self.surface = surface
         self.pos = pos   # Text-block position
         self.size = size # Text-block dimension
@@ -17,6 +19,14 @@ class Button():
         # Getter of color
         return self.color
 
+    def get_box(self):
+        # Getter of color
+        return self.box
+
+    def get_font(self):
+        # Getter of font
+        return self.font
+
     def get_surface(self):
         # Getter of surface object
         return self.surface
@@ -28,6 +38,14 @@ class Button():
     def get_size(self):
         # Getter of text-block dimension
         return self.size
+
+    def set_box(self,box):
+        # Setter of box
+        self.box = box
+
+    def set_font(self,font):
+        # Setter of font
+        self.font = font
 
     def set_surface(self,surface):
         # Setter of text surface object
