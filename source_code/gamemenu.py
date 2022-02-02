@@ -61,4 +61,26 @@ def gameintro_menu(screen,screen_width,screen_height):
         screen.blit(playbutton.get_surface(), playbutton.get_pos())
         screen.blit(quitbutton.get_surface(), quitbutton.get_pos())
         pygame.display.update()
-        
+
+
+
+def playerchose_menu(screen,screen_width,screen_height,playerstate):
+    MENU_BACKCOLOR = (64,135,132) # Menu background color
+    TEXT_COLOR = (0,0,0)
+    TEXT_SIZE = 60
+    Turn_font = pygame.font.SysFont("arial",TEXT_SIZE,False,True)
+    if playerstate:
+        Turn_message = "'o's turn to start"
+    else:
+        Turn_message = "'x's turn to start"
+
+    Turn_text = Turn_font.render(Turn_message, True, TEXT_COLOR)
+    pos = ((screen_width//2 - Turn_text.get_width()//2),(screen_height//2 - Turn_text.get_height()//2))
+
+    screen.fill(MENU_BACKCOLOR)
+    screen.blit(Turn_text,pos)
+
+    pygame.display.update()
+    
+    pygame.time.wait(1000)
+
