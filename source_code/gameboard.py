@@ -11,6 +11,7 @@ class Board:
     BOARD_COLON = 3
     winning_linepos = [[0,0],[0,0]] # To draw line position on GUI screen
     winning_linewidth = 0 # To draw line width on GUI screen
+    game_over = False # Variable that state one of the players is win or not
 
     # Player's state if Ture, it will represent one of the player
     # and otherwise false, it will represent another player
@@ -37,6 +38,14 @@ class Board:
     def get_linewidth(self):
         # Getter of winning line width
         return self.winning_linewidth
+
+    def get_gameover(self):
+        # Getter of game over state
+        return self.game_over
+
+    def set_gameover(self,game_over):
+        # Setter of game over state
+        self.game_over = game_over
 
     
     def restart_gameboard(self):
@@ -179,9 +188,9 @@ class Board:
     def first_playerchoose(self):
         # Choosing which player start to play
         if random.randint(0,1) == 0:
-            self.playerstate = False
+            self.playerstate = False # False for player2
         else:
-            self.playerstate = True
+            self.playerstate = True # True for player1
 
     def get_playerstate(self):
         # Getter of player state
