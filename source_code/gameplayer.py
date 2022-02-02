@@ -19,3 +19,10 @@ class Player:
     
     def get_wincolor(self):
         return self.win_color
+
+
+class Bot(Player):
+    pass
+
+class AI(Player):
+    pass
