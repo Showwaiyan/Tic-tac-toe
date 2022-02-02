@@ -10,9 +10,6 @@ player2 = gameplayer.Player("x", (98,102,104), (74,74,74))
 
 board.first_playerchoose() # Choosing which player to start
 
-# variable to check if someone win or nor
-game_over = False
-
 #Set Constant Color
 RECT_COLOR = (44,157,153)
 BACKGROUND_COLOR = (64,135,132)
@@ -32,20 +29,21 @@ screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32)
 # Calling game intro surface
 if not gamemenu.gameintro_menu(screen, board.get_width(), board.get_height()):
     sys.exit() # If user click quit button
-    
 
+# Showing which player start to play first
+gamemenu.playerchose_menu(screen,board.get_width(),board.get_height(),board.get_playerstate())
 
 screen.fill(BACKGROUND_COLOR)
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
-            if event.mod & pygame.KMOD_LCTRL: # If press ctrl+c to quit
+        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN: 
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.mod & pygame.KMOD_LCTRL: # If press ctrl+c to quit
                 if event.key == pygame.K_c:
                     sys.exit()
-            elif event.type == pygame.QUIT:
-                sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+        if event.type == pygame.MOUSEBUTTONDOWN and not board.get_gameover():
             if board.check_square(event.pos): # Checking the square's value is with a character 
                 continue
 
@@ -59,20 +57,22 @@ while True:
             
             # Checking which player win
             if board.test_winning(player1.get_char()):
-                game_over = True
+                board.set_gameover(True)
             elif board.test_winning(player2.get_char()):
-                game_over = True
+                board.set_gameover(True)
 
             # Checking the board is completely filled or not
             if board.check_gameboard():
-                game_over = True
+                board.set_gameover(True)
 
         # Restarting the game
-        elif event.type == pygame.KEYDOWN and game_over:
+        elif event.type == pygame.KEYDOWN and board.get_gameover():
             if event.key == pygame.K_SPACE:
-                game_over = False
-                screen.fill(BACKGROUND_COLOR)
+                board.set_gameover(False)
                 board.restart_gameboard()
+                # Every time restart the game - showing which player start to play first
+                gamemenu.playerchose_menu(screen,board.get_width(),board.get_height(),board.get_playerstate())
+                screen.fill(BACKGROUND_COLOR)
             
 
     #Drawing nine square on the screen
@@ -92,7 +92,7 @@ while True:
 
 
     # Drawing winnig line on GUI
-    if game_over:
+    if board.get_gameover():
         if not board.get_playerstate():
             pygame.draw.lines(screen, player1.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
         elif board.get_playerstate():
