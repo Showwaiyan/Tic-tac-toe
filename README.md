@@ -34,5 +34,22 @@ __
 ## Game Architecture
 ![Tic-tac-toeArchicture](https://github.com/Showwaiyan/Tic-tac-toe/blob/main/image/Tic-tac-toe%3CGameArchi%3E.jpeg)
 
-### Main game loop*(main.py)*
+### Main game loop *(main.py)*
 The main gameloop code base which is main.py file is composed with `gameboard obj` and `player obj`. It also uses functionality from __Game intro menu__ to display user buttons and Friendly UI to start to play the game. The source of `pygame display code base` and `pygame event handling` in this code base mainly orginze the game. The control structures such as- game start, game over and some feactures are maily managed in this code base.
+
+### Game board class *(gameboard.py)*
+Game board class store data and control the all of the process of __Tic-tac-toe__ grid and chose which player to start and checking1 game state base on the board.
+
+### Player class *(gameplayer.py)*
+#### Human player class
+Child class of Player class and this class is deticated for 2vs2 mode. The class store information such as sign of player, color, etc and process for representing as a human player.
+#### Bot player class
+Child class of Player class and this class is deticated for Human vs bot mode. The class stroe information about bot(not intelligence properties) and process to pick up a random grid from borad.
+#### AI player class
+Child class of Player class and this class is deticated for Human vs Ai mode. The class store informatin for __Decision making sstate__ and process to be unbeatable AI player.
+
+### Game intro menu *(gamemenu.py)*
+Give the functionalities to __Game main code base__ *(main.py)* to process button properties and text for friendly UI.
+
+### Button class *(gamebutton.py)*
+For the purpose of buttons to use in __Game menu__ *(gamemenu.pu)*, button class stroe button position and process that the users click the buttons and others fecture.
