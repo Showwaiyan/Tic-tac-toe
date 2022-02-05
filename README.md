@@ -29,3 +29,6 @@ You can download *Python* from [Python offical Website](https://www.python.org/d
 
 ### For running AI mode from Command Line
 *coming soon*
+
+## Game Architecture
+![Tic-tac-toeArchicture](https://github.com/Showwaiyan/Tic-tac-toe/blob/main/image/Tic-tac-toe%3CGameArchi%3E.pdf)
