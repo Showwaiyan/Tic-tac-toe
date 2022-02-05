@@ -6,6 +6,7 @@ We've played this game since our very young age. In this tiny project, it will h
 ## Content
 * [Installation](https://github.com/Showwaiyan/Tic-tac-toe/edit/main/README.md#installation)
 * [How to run the game](https://github.com/Showwaiyan/Tic-tac-toe/edit/main/README.md#how-to-run-the-game)
+* [Game Architecture](https://github.com/Showwaiyan/Tic-tac-toe/edit/main/README.md#game-architecture)
 
 ## Installation
 This project is written in *python* with *pygame*. 
@@ -29,6 +30,9 @@ You can download *Python* from [Python offical Website](https://www.python.org/d
 
 ### For running AI mode from Command Line
 *coming soon*
-
+__
 ## Game Architecture
-![Tic-tac-toeArchicture](https://github.com/Showwaiyan/Tic-tac-toe/blob/main/image/Tic-tac-toe%3CGameArchi%3E.pdf)
+![Tic-tac-toeArchicture](https://github.com/Showwaiyan/Tic-tac-toe/blob/main/image/Tic-tac-toe%3CGameArchi%3E.jpeg)
+
+### Main game loop*(main.py)*
+The main gameloop code base which is main.py file is composed with `gameboard obj` and `player obj`. It also uses functionality from __Game intro menu__ to display user buttons and Friendly UI to start to play the game. The source of `pygame display code base` and `pygame event handling` in this code base mainly orginze the game. The control structures such as- game start, game over and some feactures are maily managed in this code base.
