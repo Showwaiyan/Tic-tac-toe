@@ -7,7 +7,7 @@ class Player:
         self.char = char
 
         self.char_color = char_color # Character's color
-        self.win_color = win_color
+        self.win_color = win_color # Drawing line color
 
     def get_char(self):
         # getter of player's character
@@ -21,8 +21,13 @@ class Player:
         return self.win_color
 
 
-class Bot(Player):
+class Humanplayer(Player):
+    def __init__(self,char, char_color, win_color):
+        super().__init__(char,char_color,win_color)
+
+
+class Botplayer(Player):
     pass
 
-class AI(Player):
+class AIplayer(Player):
     pass

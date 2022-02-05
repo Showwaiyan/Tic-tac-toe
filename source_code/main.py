@@ -5,8 +5,8 @@ import gameboard, gameplayer, gamemenu
 
 # Creating object for board and players
 board = gameboard.Board((640,640))
-player1 = gameplayer.Player("o", (237,221,181), (255,233,179))
-player2 = gameplayer.Player("x", (98,102,104), (74,74,74))
+player1 = gameplayer.Humanplayer("o", (237,221,181), (255,233,179))
+player2 = gameplayer.Humanplayer("x", (98,102,104), (74,74,74))
 
 board.first_playerchoose() # Choosing which player to start
 
