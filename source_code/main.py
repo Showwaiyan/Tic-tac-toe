@@ -26,6 +26,30 @@ pygame.display.set_caption("Tic-Tac-Toe")
 screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32) 
 
 
+def TwoVsTwo_mode(event, board, player1, player2):
+    # 2vs2 moode implement start
+    if event.type == pygame.MOUSEBUTTONDOWN and not board.get_gameover():
+        if board.check_square(event.pos): # Checking the square's value is with a character 
+            return True
+
+        # Changing the player's character on CLI array board
+        if board.get_playerstate() == True: 
+            board.change_square(event.pos, player1.get_char()) 
+            board.set_playerstate(False)# Changing state to another player
+        else:
+            board.change_square(event.pos, player2.get_char()) 
+            board.set_playerstate(True) # Changing state to another player
+            
+        # Checking which player win
+        if board.test_winning(player1.get_char()):
+            board.set_gameover(True)
+        elif board.test_winning(player2.get_char()):
+            board.set_gameover(True)
+
+        # 2vs2 mode implement end
+
+
+
 # Calling game intro surface
 if not gamemenu.gameintro_menu(screen, board.get_width(), board.get_height()):
     sys.exit() # If user click quit button
@@ -43,30 +67,15 @@ while True:
             elif event.mod & pygame.KMOD_LCTRL: # If press ctrl+c to quit
                 if event.key == pygame.K_c:
                     sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and not board.get_gameover():
-            if board.check_square(event.pos): # Checking the square's value is with a character 
-                continue
 
-            # Changing the player's character on CLI array board
-            if board.get_playerstate(): 
-                board.change_square(event.pos, player1.get_char()) 
-                board.set_playerstate(False)# Changing state to another player
-            else:
-                board.change_square(event.pos, player2.get_char()) 
-                board.set_playerstate(True) # Changing state to another player
-            
-            # Checking which player win
-            if board.test_winning(player1.get_char()):
-                board.set_gameover(True)
-            elif board.test_winning(player2.get_char()):
-                board.set_gameover(True)
+        TwoVsTwo_mode(event, board, player1, player2) # Calling 2vs2 mode fuction
 
-            # Checking the board is completely filled or not
-            if board.check_gameboard():
-                board.set_gameover(True)
-
+        # Checking the board is completely filled or not
+        if board.check_gameboard():
+            board.set_gameover(True)
+ 
         # Restarting the game
-        elif event.type == pygame.KEYDOWN and board.get_gameover():
+        if event.type == pygame.KEYDOWN and board.get_gameover():
             if event.key == pygame.K_SPACE:
                 board.set_gameover(False)
                 board.restart_gameboard()
