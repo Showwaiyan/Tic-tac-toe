@@ -22,8 +22,15 @@ class Player:
 
 
 class Humanplayer(Player):
+
+    gamemode = "HUMAN" # Mode assign variable
+
     def __init__(self,char, char_color, win_color):
         super().__init__(char,char_color,win_color)
+
+    def get_gamemode(self):
+        # Getter of gamemode
+        return self.gamemode
 
 
 class Botplayer(Player):
