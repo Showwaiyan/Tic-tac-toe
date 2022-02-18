@@ -1,3 +1,7 @@
+# Module import start
+import random # for bot class usage
+# Module import end
+
 # Game Player Class
 class Player:
 
@@ -34,7 +38,18 @@ class Humanplayer(Player):
 
 
 class Botplayer(Player):
-    pass
+    gamemode = "BOT" # Mode assign variable
+
+    def __init__(self,char, char_color, win_color):
+        super().__init__(char,char_color,win_color)
+
+    def get_gamemode(self):
+        # Getter of gamemode
+        return self.gamemode
+
+    def get_pos(self):
+        # Give the positon of x and y to the game board
+        return [random.randint(0,2),random.randint(0,2)]
 
 class AIplayer(Player):
     pass
