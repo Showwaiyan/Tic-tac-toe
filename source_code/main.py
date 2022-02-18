@@ -6,7 +6,7 @@ import gameboard, gameplayer, gamemenu
 # Creating object for board and players
 board = gameboard.Board((640,640))
 player1 = gameplayer.Humanplayer("o", (237,221,181), (255,233,179))
-player2 = gameplayer.Humanplayer("x", (98,102,104), (74,74,74))
+player2 = gameplayer.Botplayer("x", (98,102,104), (74,74,74))
 
 board.first_playerchoose() # Choosing which player to start
 
@@ -26,28 +26,44 @@ pygame.display.set_caption("Tic-Tac-Toe")
 screen = pygame.display.set_mode((board.get_width(),board.get_height()), 0, 32) 
 
 
-def TwoVsTwo_mode(event, board, player1, player2):
-    # 2vs2 moode implement start
+def twovstwo_mode(event, board, player1, player2):
+    # 2vs2 moode implementation start
     if event.type == pygame.MOUSEBUTTONDOWN and not board.get_gameover():
-        if board.check_square(event.pos): # Checking the square's value is with a character 
+        if board.check_square(event.pos,player2.get_gamemode()): # Checking the square's value is with a character 
             return True
 
         # Changing the player's character on CLI array board
         if board.get_playerstate() == True: 
-            board.change_square(event.pos, player1.get_char()) 
+            board.change_square(event.pos, player1.get_char(), player1.get_gamemode()) 
             board.set_playerstate(False)# Changing state to another player
         else:
-            board.change_square(event.pos, player2.get_char()) 
+            board.change_square(event.pos, player2.get_char(), player2.get_gamemode()) 
             board.set_playerstate(True) # Changing state to another player
             
-        # Checking which player win
-        if board.test_winning(player1.get_char()):
-            board.set_gameover(True)
-        elif board.test_winning(player2.get_char()):
-            board.set_gameover(True)
+    # 2vs2 mode implementation end
 
-        # 2vs2 mode implement end
+def bot_mode(event, board, player1, player2):
+    # Bot mode implementation start
+    if event.type == pygame.MOUSEBUTTONDOWN and not board.get_gameover():
+        if board.check_square(event.pos, player1.get_gamemode()): # Checking the square's value is with a character 
+            return True
 
+        # Changing the player's character on CLI array board
+        if board.get_playerstate() == True: 
+            board.change_square(event.pos, player1.get_char(), player1.get_gamemode()) 
+            board.set_playerstate(False)# Changing state to another player
+
+    elif (board.get_playerstate() == False) and (not board.get_gameover()):            
+        while True:
+            pos = player2.get_pos() # Getting random positon for bot
+
+            # Changing the player's character on CLI array board
+            if not board.check_square(pos, player2.get_gamemode()):
+                board.change_square(pos,player2.get_char(),player2.get_gamemode())
+                board.set_playerstate(True)# Changing state to another player
+                break
+
+    #Bot mode implementation end
 
 
 # Calling game intro surface
@@ -68,7 +84,18 @@ while True:
                 if event.key == pygame.K_c:
                     sys.exit()
 
-        TwoVsTwo_mode(event, board, player1, player2) # Calling 2vs2 mode fuction
+
+        if player2.get_gamemode() == "HUMAN":
+            twovstwo_mode(event, board, player1, player2) # Calling 2vs2 mode fuction
+        elif player2.get_gamemode() ==  "BOT":
+            bot_mode(event, board, player1, player2) # Calling bot mode function
+
+        # Checking which player win
+        if board.test_winning(player1.get_char()):
+            board.set_gameover(True)
+        elif board.test_winning(player2.get_char()):
+            board.set_gameover(True)
+
 
         # Checking the board is completely filled or not
         if board.check_gameboard():
@@ -97,7 +124,7 @@ while True:
                 screen.blit(character, board.get_pos(row,colon,character.get_width()//2,character.get_height()//2))
             elif board.board[row][colon] == player2.get_char():
                 character = char_font.render(player2.get_char(), True, player2.get_charcolor())
-                screen.blit(character, board.get_pos(row,colon,character.get_width()//2,character.get_height()//2))
+                screen.blit(character, board.get_pos(row,colon,character.get_width()//2,character.get_height()//2)) 
 
 
     # Drawing winnig line on GUI
@@ -105,6 +132,11 @@ while True:
         if not board.get_playerstate():
             pygame.draw.lines(screen, player1.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
         elif board.get_playerstate():
-            pygame.draw.lines(screen, player2.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())
+            pygame.draw.lines(screen, player2.get_wincolor(), False, board.get_winningline_pos(), board.get_linewidth())   
                         
     pygame.display.update()
+
+    # Delay one second when the turn is bot's turn and when it is not gameover
+    if (board.get_playerstate() == False and player2.get_gamemode() == "BOT") and not board.get_gameover():
+        pygame.time.delay(1000)
+
