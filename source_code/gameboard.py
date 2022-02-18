@@ -57,31 +57,39 @@ class Board:
         self.winning_linewidth = 0
 
 
-    def change_square(self,mouse_pos, char):
+    def change_square(self,pos, char, gamemode): # For 2vs2Mode
         # Determine the square from the position of mouse
-        
-        # Due to the 200x200 square
-        # divided the mouse position x and y by 220,
-        # which is the unit of square and line width
-        # and get the round floor interger which is represent as a
-        # multidimensino array indexs
-        colon = int(mouse_pos[0] // 220)
-        row = int(mouse_pos[1] // 220)
+       
+       if gamemode == "HUMAN":
+            # Due to the 200x200 square
+            # divided the mouse position x and y by 220,
+            # which is the unit of square and line width
+            # and get the round floor interger which is represent as a
+            # multidimensino array indexs
+            colon = int(pos[0] // 220)
+            row = int(pos[1] // 220)
 
-        # Checking the array is fill or not
-        # if the array already has a value
-        # Skip the step of assign
-        self.board[row][colon] = char if self.board[row][colon] == 0 else self.board[row][colon]
+            # Checking the array is fill or not
+            # if the array already has a value
+            # Skip the step of assign
+            self.board[row][colon] = char if self.board[row][colon] == 0 else self.board[row][colon]
+       elif gamemode == "BOT":
+            # Assign the positon from botclass that computed
+            self.board[pos[0]][pos[1]] = char if self.board[pos[0]][pos[1]] == 0 else self.board[pos[0]][pos[1]]
 
-    def check_square(self,mouse_pos):
-       # Checking the square on screen is drew or not
+    def check_square(self,pos, gamemode):
+       if gamemode == "HUMAN":
+           # Checking the square on screen is fill or not
 
-       # If the user click the square that has already value with character
-       # this function return the positon of x and y's square has been draw
-       # and not to count this as a drawing character step
-       colon = int(mouse_pos[0] // 220)
-       row = int(mouse_pos[1] // 220)
-       return (self.board[row][colon] != 0)
+           # If the user click the square that has already value with character
+           # this function return the positon of x and y's square has been draw
+           # and not to count this as a drawing character step
+           colon = int(pos[0] // 220)
+           row = int(pos[1] // 220)
+           return (self.board[row][colon] != 0)
+       elif gamemode == "BOT":
+           # Checking the gameboard positio is fill or not
+           return (self.board[pos[0]][pos[1]] != 0)
   
         
     def get_pos(self,row,colon,text_width,text_height):
